@@ -47,6 +47,7 @@
                     echo $_SESSION['email'];
                 } ?>" />
                 <?php if (isset($_POST['email']) && $_POST['email'] == '') {
+                    $showMessage = false;
                 ?>  <label class='error' for="email">Please fill in an email.</label>
 
                 <?php } ?>
@@ -65,6 +66,7 @@
                     echo $_SESSION['street'];
                 } ?>" >
                 <?php if (isset($_POST['street']) && $_POST['street'] == '' ) {
+                    $showMessage = false;
                 ?>  <label class='error' for="street">Please fill in a street.</label>
 
                 <?php } ?>
@@ -74,7 +76,8 @@
                     <input type="text" id="streetnumber" name="streetnumber" class="form-control" value="<?php if(isset($_SESSION['streetnumber'])) {
                     echo $_SESSION['streetnumber'];
                 } ?>" >
-                <?php if (isset($_POST['streetnumber']) && $_POST['streetnumber'] == '') {
+                <?php if (isset($_POST['streetnumber']) && $_POST['streetnumber'] == '' || isset($_POST['zipcode']) && !is_numeric($_POST['streetnumber']) ) {
+                    $showMessage = false;
                 ?>  <label class='error' for="streetnumber">Please fill in a streetnumber.</label>
 
                 <?php } ?>
@@ -87,16 +90,19 @@
                     echo $_SESSION['city']; 
                 } ?>" >
                 <?php if (isset($_POST['city']) && $_POST['city'] == '') {
+                    $showMessage = false;
                 ?>  <label class='error' for="city">Please fill in a city.</label>
                 <?php } ?>
                 </div>
                 <div class="form-group col-md-6">
                     <label for="zipcode">Zipcode</label>
-                    <input type="number" id="zipcode" name="zipcode" class="form-control" value="<?php if(isset($_SESSION['zipcode'])) {
+                    <input type="text" id="zipcode" name="zipcode" class="form-control" value="<?php if(isset($_SESSION['zipcode'])) {
+                        $showMessage = false;
                     echo $_SESSION['zipcode'];
                 } ?>" >
-                 <?php if (isset($_POST['zipcode']) && $_POST['zipcode'] == '') {
-                ?>  <label class='error' for="zipcode">Please fill in a zipcode.</label>
+                 <?php if (isset($_POST['zipcode']) && $_POST['zipcode'] == '' || isset($_POST['zipcode']) && !is_numeric($_POST['zipcode'])) {
+                     $showMessage = false;
+                ?>  <label class='error' for="zipcode">Please fill in a zipcode(numbers).</label>
                 <?php } ?>
                 </div>
             </div>
@@ -104,23 +110,13 @@
 
         <fieldset>
             <legend>Products</legend>
-            <?php if(isset($_GET['food']) && $_GET['food'] == 1) {
-                foreach ($food AS $i => $food): ?>
-                 <label>
-                    <input type="checkbox" value="1" name="products[<?php echo $i ?>]"/> <?php echo $food['name'] ?> -
-                    &euro; <?php echo number_format($food['price'], 2) ?>
-                </label><br />
-                <?php endforeach; 
-            } else {
-                foreach ($drinks AS $i => $drink): ?>
-                    <label>
-                       <input type="checkbox" value="1" name="products[<?php echo $i ?>]"/> <?php echo $drink['name'] ?> -
-                       &euro; <?php echo number_format($drink['price'], 2) ?>
-                   </label><br />
-                   <?php endforeach; 
-            }                   
             
-            ?>     
+            <?php 
+            foreach ($products AS $i => $product): ?>
+                <label>
+                    <input type="checkbox" value="1" name="products[<?php echo $i ?>]"/> <?php echo $product['name'] ?> -
+                    &euro; <?php echo number_format($product['price'], 2) ?></label><br />
+            <?php endforeach; ?>
         </fieldset>
         
         <label>

@@ -33,12 +33,25 @@ $drinks = [
 ];
 
 $totalValue = 0;
+$showMessage = true;
+
+if (isset($_GET['food']) && $_GET['food'] != 1) {
+    $products = $drinks;
+} else {
+    $products = $food;
+};
+
+if (isset($_POST['products'])) {
+    $total = 0;
+    foreach(array_keys($_POST['products']) as $key) {
+        $total += $products[$key]['price'];
+    }    
+    $totalValue += $total;
+
+    if($showMessage) {
+        echo 'nice!';
+    };
+};
 
 require 'form-view.php';
 
-
-if (isset($_POST['submit'])) {
-    echo $_POST[city];
-};
-
-whatIsHappening();
