@@ -17,7 +17,7 @@ function whatIsHappening() {
 }
 
 //your products with their price.
-$products = [
+$food = [
     ['name' => 'Club Ham', 'price' => 3.20],
     ['name' => 'Club Cheese', 'price' => 3],
     ['name' => 'Club Cheese & Ham', 'price' => 4],
@@ -25,7 +25,7 @@ $products = [
     ['name' => 'Club Salmon', 'price' => 5]
 ];
 
-$products = [
+$drinks = [
     ['name' => 'Cola', 'price' => 2],
     ['name' => 'Fanta', 'price' => 2],
     ['name' => 'Sprite', 'price' => 2],
@@ -35,3 +35,10 @@ $products = [
 $totalValue = 0;
 
 require 'form-view.php';
+
+
+if (isset($_POST['submit'])) {
+    echo $_POST[city];
+};
+
+whatIsHappening();
