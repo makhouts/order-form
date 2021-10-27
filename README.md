@@ -4,7 +4,7 @@
 <h1>About the project</h1>
 
 <p>Order your favorite drink or food with this little form.
- After ordering you will have a overview with the total amount that you should pay upon delivery.
+ After ordering you will have an overview with the total amount that you should pay upon delivery.
 </p>
 
 <h2>Built With:</h2>
