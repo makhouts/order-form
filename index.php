@@ -33,12 +33,22 @@ $drinks = [
 ];
 
 $totalValue = 0;
+if(isset($_COOKIE['totalAmount'])) {
+    $totalValue = $_COOKIE['totalAmount'];
+};
+$total = 0;
 $showMessage = true;
 $showErrorEmail = false;
 $showErrorStreet = false;
 $showErrorStreetNumber = false;
 $showErrorCity = false;
 $showErrorZipCode = false;
+$showErrorCheckboxes = false;
+$quickDelivery = false;
+
+// $cookieName = 'totalAmount';
+// $totalValue += $total;
+// setcookie($cookieName, $totalValue, time() + (86400 * 30), "/"); 
 
 if (!empty($_POST['email'])){
     $_SESSION['email'] = $_POST['email'];
@@ -80,9 +90,7 @@ if (isset($_POST['city']) && $_POST['city'] == '') {
 if (isset($_POST['zipcode']) && $_POST['zipcode'] == '' || isset($_POST['zipcode']) && !is_numeric($_POST['zipcode'])) {
     $showMessage = false;
     $showErrorZipCode = true;
-}
-
-
+};
 
 
 if (isset($_GET['food']) && $_GET['food'] != 1) {
@@ -91,17 +99,29 @@ if (isset($_GET['food']) && $_GET['food'] != 1) {
     $products = $food;
 };
 
-if (isset($_POST['products'])) {
+if(isset($_POST['products'])){
     $total = 0;
     foreach(array_keys($_POST['products']) as $key) {
         $total += $products[$key]['price'];
-    }    
-    $totalValue += $total;
-
+    };
+    if(isset($_POST['express_delivery'])) {
+        $total += $_POST['express_delivery'];
+        $quickDelivery = true;
+    };
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if($showMessage) {
-        echo 'nice!';
+        $totalValue = $total + $totalValue; 
+        setcookie("totalAmount", strVal($totalValue), time()+30*24*60*60);
     };
 };
+
+} else {
+    $showErrorCheckboxes = true;
+    $showMessage = false;
+};
+
+
+    
 
 require 'form-view.php';
 

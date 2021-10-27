@@ -11,6 +11,14 @@
 </head>
 <body>
 <div class="container">
+<?php if($showMessage) { ?>
+<div class="alert alert-success" role="alert">
+  <h4 class="alert-heading">Thank you for your order!</h4>
+  <p>We will deliver your order at: <strong><?php echo $_POST['street'] . ' ' . $_POST['streetnumber'] . ' ' . $_POST['city']; ?></strong></p>
+  <p>Amount that should be paid upon delivery: <strong>€ <?php echo $total ?></strong></p>
+  <hr>
+  <p class="mb-0">Delivery time will be: <strong><?php echo $quickDelivery ? "45 minutes" : "2 hours"; ?></strong></p>
+</div> <?php }; ?>
     <h1>Order food in restaurant "the Personal Ham Processors"</h1>
     <nav>
         <ul class="nav">
@@ -90,7 +98,8 @@
             Express delivery (+ 5 EUR) 
         </label>
             
-        <button type="submit" name='submit' class="btn btn-primary">Order!</button>
+        <button type="submit" name='submit' class="btn btn-primary">Order!</button><br>
+        <label class='error'><?php echo $showErrorCheckboxes ? 'Please select at least one food/drink!' : null ?></label>
     </form>
 
     <footer>You already ordered <strong>&euro; <?php echo $totalValue ?></strong> in food and drinks.</footer>
@@ -103,6 +112,9 @@
 
     .error {
         color: red;
+    }
+    .alert-success {
+        margin-top: 30px;
     }
 </style>
 </body>
