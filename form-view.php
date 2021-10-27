@@ -22,23 +22,6 @@
             </li>
         </ul>
     </nav>
-    <?php        
-        if (!empty($_POST['email'])){
-            $_SESSION['email'] = $_POST['email'];
-        };
-        if (!empty($_POST['email'])){
-            $_SESSION['street'] = $_POST['street'];
-        };
-        if (!empty($_POST['email'])){
-            $_SESSION['streetnumber'] = $_POST['streetnumber'];
-        };
-        if (!empty($_POST['email'])){
-            $_SESSION['city'] = $_POST['city'];
-        };
-        if (!empty($_POST['email'])){
-            $_SESSION['zipcode'] = $_POST['zipcode'];
-        };
-    ?>
     <form method="post">
         <div class="form-row">
             <div class="form-group col-md-6">
@@ -46,11 +29,7 @@
                 <input type="email" id="email" name="email" class="form-control" value="<?php if(isset($_SESSION['email'])) {
                     echo $_SESSION['email'];
                 } ?>" />
-                <?php if (isset($_POST['email']) && $_POST['email'] == '') {
-                    $showMessage = false;
-                ?>  <label class='error' for="email">Please fill in an email.</label>
-
-                <?php } ?>
+                <?php echo $showErrorEmail ? "<label class='error' for='email'>Please fill in an email.</label>"  : null; ?>
 
             </div>
             <div></div>
@@ -65,22 +44,15 @@
                     <input type="text" name="street" id="street" class="form-control" value="<?php if(isset($_SESSION['street'])) {
                     echo $_SESSION['street'];
                 } ?>" >
-                <?php if (isset($_POST['street']) && $_POST['street'] == '' ) {
-                    $showMessage = false;
-                ?>  <label class='error' for="street">Please fill in a street.</label>
+                <?php echo $showErrorStreet ? "<label class='error' for='street'>Please fill in a street.</label>" : null; ?>
 
-                <?php } ?>
                 </div>
                 <div class="form-group col-md-6">
                     <label for="streetnumber">Street number:</label>
                     <input type="text" id="streetnumber" name="streetnumber" class="form-control" value="<?php if(isset($_SESSION['streetnumber'])) {
                     echo $_SESSION['streetnumber'];
                 } ?>" >
-                <?php if (isset($_POST['streetnumber']) && $_POST['streetnumber'] == '' || isset($_POST['zipcode']) && !is_numeric($_POST['streetnumber']) ) {
-                    $showMessage = false;
-                ?>  <label class='error' for="streetnumber">Please fill in a streetnumber.</label>
-
-                <?php } ?>
+                <?php echo $showErrorStreetNumber ? "<label class='error' for='streetnumber'>Please fill in a streetnumber.</label>" : null; ?>
                 </div>
             </div>
             <div class="form-row">
@@ -89,10 +61,7 @@
                     <input type="text" id="city" name="city" class="form-control" value="<?php if(isset($_SESSION['city'])) {
                     echo $_SESSION['city']; 
                 } ?>" >
-                <?php if (isset($_POST['city']) && $_POST['city'] == '') {
-                    $showMessage = false;
-                ?>  <label class='error' for="city">Please fill in a city.</label>
-                <?php } ?>
+                <?php echo $showErrorCity ? "<label class='error' for='city'>Please fill in a city.</label>" : null; ?>
                 </div>
                 <div class="form-group col-md-6">
                     <label for="zipcode">Zipcode</label>
@@ -100,10 +69,7 @@
                         $showMessage = false;
                     echo $_SESSION['zipcode'];
                 } ?>" >
-                 <?php if (isset($_POST['zipcode']) && $_POST['zipcode'] == '' || isset($_POST['zipcode']) && !is_numeric($_POST['zipcode'])) {
-                     $showMessage = false;
-                ?>  <label class='error' for="zipcode">Please fill in a zipcode(numbers).</label>
-                <?php } ?>
+                    <?php echo $showErrorZipCode ? "<label class='error' for='zipcode'>Please fill in a zipcode(numbers).</label>" : null; ?>
                 </div>
             </div>
         </fieldset>

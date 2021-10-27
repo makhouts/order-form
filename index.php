@@ -34,6 +34,56 @@ $drinks = [
 
 $totalValue = 0;
 $showMessage = true;
+$showErrorEmail = false;
+$showErrorStreet = false;
+$showErrorStreetNumber = false;
+$showErrorCity = false;
+$showErrorZipCode = false;
+
+if (!empty($_POST['email'])){
+    $_SESSION['email'] = $_POST['email'];
+};
+if (!empty($_POST['email'])){
+    $_SESSION['street'] = $_POST['street'];
+};
+if (!empty($_POST['email'])){
+    $_SESSION['streetnumber'] = $_POST['streetnumber'];
+};
+if (!empty($_POST['email'])){
+    $_SESSION['city'] = $_POST['city'];
+};
+if (!empty($_POST['email'])){
+    $_SESSION['zipcode'] = $_POST['zipcode'];
+};
+
+
+if (isset($_POST['email']) && $_POST['email'] == '') {
+    $showMessage = false;
+    $showErrorEmail = true;
+};
+
+if (isset($_POST['street']) && $_POST['street'] == '' ) {
+    $showMessage = false;
+    $showErrorStreet = true;
+};
+
+if (isset($_POST['streetnumber']) && $_POST['streetnumber'] == '' || isset($_POST['zipcode']) && !is_numeric($_POST['streetnumber']) ) {
+    $showMessage = false;
+    $showErrorStreetNumber = true;
+};
+
+if (isset($_POST['city']) && $_POST['city'] == '') {
+    $showMessage = false;
+    $showErrorCity = true;
+};
+
+if (isset($_POST['zipcode']) && $_POST['zipcode'] == '' || isset($_POST['zipcode']) && !is_numeric($_POST['zipcode'])) {
+    $showMessage = false;
+    $showErrorZipCode = true;
+}
+
+
+
 
 if (isset($_GET['food']) && $_GET['food'] != 1) {
     $products = $drinks;
