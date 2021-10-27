@@ -46,10 +46,6 @@ $showErrorZipCode = false;
 $showErrorCheckboxes = false;
 $quickDelivery = false;
 
-// $cookieName = 'totalAmount';
-// $totalValue += $total;
-// setcookie($cookieName, $totalValue, time() + (86400 * 30), "/"); 
-
 if (!empty($_POST['email'])){
     $_SESSION['email'] = $_POST['email'];
 };
@@ -108,13 +104,11 @@ if(isset($_POST['products'])){
         $total += $_POST['express_delivery'];
         $quickDelivery = true;
     };
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if($showMessage) {
         $totalValue = $total + $totalValue; 
         setcookie("totalAmount", strVal($totalValue), time()+30*24*60*60);
     };
-};
-
+    // mail('makhouts@gmail.com', 'Your order', 'test');
 } else {
     $showErrorCheckboxes = true;
     $showMessage = false;
